@@ -44,40 +44,38 @@ class Tree {
   }
 
   // ROOT,LEFT,RIGHT
-  preOrderTraversal() {
-    this._preOrderTraversal(this.root);
-  }
-
-  _preOrderTraversal(root) {
+  preOrderTraversal(root = this.root) {
     if (root === null) return;
 
     console.log(root.value);
-    this._preOrderTraversal(root.leftChild);
-    this._preOrderTraversal(root.rightChild);
+    this.preOrderTraversal(root.leftChild);
+    this.preOrderTraversal(root.rightChild);
   }
 
   // LEFT,ROOT,RIGHT
-  inOrderTraversal() {
-    this._inOrderTraversal(this.root);
-  }
-  _inOrderTraversal(root) {
+  inOrderTraversal(root = this.root) {
     if (root === null) return;
-    this._inOrderTraversal(root.leftChild);
+    this.inOrderTraversal(root.leftChild);
     console.log(root.value);
-    this._inOrderTraversal(root.rightChild);
+    this.inOrderTraversal(root.rightChild);
   }
 
   // LEFT,RIGHT,ROOT
-  postOrderTraversal() {
-    this._postOrderTraversal(this.root);
-  }
-
-  _postOrderTraversal(root) {
+  postOrderTraversal(root = this.root) {
     if (root === null) return;
 
-    this._postOrderTraversal(root.leftChild);
-    this._postOrderTraversal(root.rightChild);
+    this.postOrderTraversal(root.leftChild);
+    this.postOrderTraversal(root.rightChild);
     console.log(root.value);
+  }
+
+  height(root = this.root) {
+    if (root === null) return -1;
+
+    const leftHeight = this.height(root.leftChild);
+    const rightHeight = this.height(root.rightChild);
+
+    return Math.max(leftHeight, rightHeight) + 1;
   }
 }
 
