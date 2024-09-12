@@ -1,4 +1,4 @@
-const { Tree, TreeNode } = require("./models/tree");
+const { Tree, TreeNode } = require('./models/tree');
 
 const tree = new Tree();
 tree.insert(7);
@@ -8,6 +8,7 @@ tree.insert(1);
 tree.insert(6);
 tree.insert(8);
 tree.insert(10);
+tree.insert(25);
 tree.insert(25);
 
 const minTree = new Tree();
@@ -25,8 +26,12 @@ minTree.root.leftChild.leftChild.rightChild = new TreeNode(8);
 // tree.postOrderTraversal();
 // console.log(tree.height());
 
-console.log(minTree.min());
-console.log(tree.findMin());
+// console.log(minTree.min());
+// console.log(tree.findMin());
+// tree.printNodesAtDistance(3);
+tree.breadthFirstTraversal();
+console.log(tree.isBST());
+console.log(minTree.isBST());
 
 ///            7
 //        4        9

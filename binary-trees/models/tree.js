@@ -69,7 +69,7 @@ class Tree {
     console.log(root.value);
   }
 
-  // Function to calculate the height of the binary tree
+  // Method to calculate the height of the binary tree
   height(root = this.root) {
     if (root === null) return -1;
 
@@ -79,7 +79,7 @@ class Tree {
     return Math.max(leftHeight, rightHeight) + 1;
   }
 
-  // Function to find the minimum value in a b-tree.
+  // Method to find the minimum value in a b-tree.
   min(root = this.root) {
     if (root === null) {
       return Infinity;
@@ -90,7 +90,7 @@ class Tree {
     return Math.min(left, right, root.value);
   }
 
-  // Function to find the minimum value in a binary-search-tree.
+  // Method to find the minimum value in a binary-search-tree.
   findMin(root = this.root) {
     let curr = root;
     let last;
@@ -99,6 +99,33 @@ class Tree {
       curr = curr.leftChild;
     }
     return last.value;
+  }
+
+  // Method to print nodes at distance
+  printNodesAtDistance(distance, root = this.root) {
+    if (root === null) return;
+    if (distance === 0) {
+      console.log(root.value);
+    }
+    this.printNodesAtDistance(distance - 1, root.leftChild);
+    this.printNodesAtDistance(distance - 1, root.rightChild);
+  }
+
+  // Method to check if is binary search tree
+  isBST(root = this.root, min = Number.MIN_VALUE, max = Number.MAX_VALUE) {
+    if (root === null) return true;
+    if (root.value < min || root.value > max) return false;
+    return (
+      this.isBST(root.leftChild, min, root.value - 1) && this.isBST(root.rightChild, root.value + 1, max)
+    );
+  }
+
+  // Method to traverse breadth first
+  breadthFirstTraversal(root = this.root) {
+    const height = this.height(root);
+    for (let i = 0; i <= height; i++) {
+      this.printNodesAtDistance(i);
+    }
   }
 }
 
