@@ -1,4 +1,4 @@
-class Node {
+class TreeNode {
   constructor(value) {
     this.value = value;
     this.leftChild = null;
@@ -12,7 +12,7 @@ class Tree {
   }
 
   insert(value) {
-    const node = new Node(value);
+    const node = new TreeNode(value);
     let curr = this.root;
     if (curr === null) {
       this.root = node;
@@ -69,6 +69,7 @@ class Tree {
     console.log(root.value);
   }
 
+  // Function to calculate the height of the binary tree
   height(root = this.root) {
     if (root === null) return -1;
 
@@ -77,6 +78,28 @@ class Tree {
 
     return Math.max(leftHeight, rightHeight) + 1;
   }
+
+  // Function to find the minimum value in a b-tree.
+  min(root = this.root) {
+    if (root === null) {
+      return Infinity;
+    }
+    const left = this.min(root.leftChild);
+    const right = this.min(root.rightChild);
+
+    return Math.min(left, right, root.value);
+  }
+
+  // Function to find the minimum value in a binary-search-tree.
+  findMin(root = this.root) {
+    let curr = root;
+    let last;
+    while (curr !== null) {
+      last = curr;
+      curr = curr.leftChild;
+    }
+    return last.value;
+  }
 }
 
-module.exports = Tree;
+module.exports = { Tree, TreeNode };
