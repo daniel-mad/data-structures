@@ -127,6 +127,18 @@ class Tree {
       this.printNodesAtDistance(i);
     }
   }
+
+  // Method to check if tree is balanced
+  isBalanced(root = this.root) {
+    if (!root) return true;
+
+    const leftHeight = this.height(root.leftChild);
+    const rightHeight = this.height(root.rightChild);
+
+    if (Math.abs(leftHeight - rightHeight) > 1) return false;
+
+    return this.isBalanced(root.leftChild) && this.isBalanced(root.rightChild);
+  }
 }
 
 module.exports = { Tree, TreeNode };
