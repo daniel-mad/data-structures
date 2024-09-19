@@ -31,7 +31,7 @@ class Graph {
     if (!node) return;
     for (const key of this.adjacencyList.keys()) {
       const targets = this.adjacencyList.get(key);
-      const index = targets.indexOf(label);
+      const index = targets.indexOf(node);
       if (index > -1) {
         targets.splice(index, 1);
       }
@@ -44,10 +44,58 @@ class Graph {
     const fromNode = this.nodes.get(from);
     const toNode = this.nodes.get(to);
     if (!fromNode || !toNode) return;
-    const targets = his.adjacencyList.get(fromNode);
+    const targets = this.adjacencyList.get(fromNode);
     const index = targets.indexOf(toNode);
     if (index > -1) {
       targets.splice(index, 1);
+    }
+  }
+
+  traverseDepthFirst(label) {
+    const node = this.nodes.get(label);
+    if (!node) return;
+    this.traverseDepth(node, new Set());
+  }
+
+  traverseDepth(root, visited) {
+    console.log(root);
+    visited.add(root);
+    for (const node of this.adjacencyList.get(root)) {
+      if (!visited.has(node)) {
+        this.traverseDepth(node, visited);
+      }
+    }
+  }
+
+  traverseDepthFirstIterative(label) {
+    const node = this.nodes.get(label);
+    if (!node) return;
+    const stack = [];
+    const visited = new Set();
+    stack.push(node);
+    while (stack.length) {
+      const current = stack.pop();
+      visited.add(current);
+      console.log(current);
+      for (const node of this.adjacencyList.get(current)) {
+        if (!visited.has(node)) stack.push(node);
+      }
+    }
+  }
+
+  traverseBreadthFirstIterative(label) {
+    const node = this.nodes.get(label);
+    if (!node) return;
+    const queue = [];
+    const visited = new Set();
+    queue.push(node);
+    while (queue.length) {
+      const current = queue.shift();
+      visited.add(current);
+      console.log(current);
+      for (const node of this.adjacencyList.get(current)) {
+        if (!visited.has(node)) queue.push(node);
+      }
     }
   }
 
