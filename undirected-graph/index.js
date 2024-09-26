@@ -16,6 +16,7 @@ graph.addEdge("C", "D", 1);
 // graph.print();
 
 console.log(graph.findShortestPath("B", "D"));
+console.log("Has cycle:", graph.hasCycle());
 
 //       A - 3 - B
 //      / \      /

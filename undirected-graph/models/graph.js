@@ -82,6 +82,38 @@ class Graph {
       path,
     };
   }
+
+  hasCycle() {
+    const visited = new Set();
+
+    // Helper DFS function
+    const dfs = (node, parent) => {
+      visited.add(node);
+      // Visit all neighbors of the current node
+      for (const neighbor of this.adjacencyList.get(node)) {
+        if (!visited.has(neighbor.node)) {
+          if (dfs(neighbor.node, node)) {
+            return true; // Cycle found
+          }
+        }
+        // If neighbor is visited and is not the parent, then it's a back edge, indicating a cycle
+        else if (neighbor.node !== parent) {
+          return true;
+        }
+      }
+
+      return false;
+    };
+
+    // Iterate over all nodes (in case of a disconnected graph)
+    for (const node of this.nodes.values()) {
+      if (!visited.has(node) && dfs(node, null)) {
+        return true; // Cycle found
+      }
+    }
+
+    return false;
+  }
 }
 
 class PriorityQueue {
